@@ -9,6 +9,14 @@ Connectify is a social media platform that allows users to connect with each oth
 
 ## Features
 
+### 1. User Authentication
+
+- Users can sign up and log in to their accounts.
+- Users can reset their passwords.
+
+For more details, see [User Authentication](user-authentication.md).
+
+### 2. User Profile
 
 ## How to Use
 
