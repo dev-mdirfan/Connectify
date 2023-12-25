@@ -79,8 +79,8 @@ def login(request):
 
     if request.method == 'POST':
         # Get form data
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST['login-username']
+        password = request.POST['login-password']
 
         # Authenticate user
         user = auth.authenticate(username=username, password=password)
@@ -89,7 +89,7 @@ def login(request):
             # Log in the user
             auth.login(request, user)
             messages.success(request, 'Login successful.')
-            return redirect('home')
+            return redirect('index')
         else:
             messages.error(request, 'Invalid username or password.')
             return redirect('login')
