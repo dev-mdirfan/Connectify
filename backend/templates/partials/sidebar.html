@@ -123,19 +123,28 @@
         <div class="content-side">
             <ul class="nav-main">
                 <li class="nav-main-item">
-                    <a class="nav-main-link active" href="{% url 'index' %}">
+                    <a {% if '/' == request.path %}
+                        class="nav-main-link active" 
+                        {% else %} class="nav-main-link" {% endif %}
+                        href="{% url 'index' %}">
                         <i class="nav-main-link-icon si si-home"></i>
                         <span class="nav-main-link-name">Home</span>
                     </a>
                 </li>
                 <li class="nav-main-item">
-                    <a class="nav-main-link" href="{% url 'index' %}">
+                    <a {% if 'blog' in request.path %}
+                    class="nav-main-link active"
+                    {% else %} class="nav-main-link" {% endif %} 
+                    href="{% url 'blog' %}">
                         <i class="nav-main-link-icon fa fa-blog"></i>
                         <span class="nav-main-link-name">Blog</span>
                     </a>
                 </li>
                 <li class="nav-main-item">
-                    <a class="nav-main-link" href="{% url 'index' %}">
+                    <a {% if 'about' in request.path %}
+                        class="nav-main-link active"
+                        {% else %} class="nav-main-link" {% endif %} 
+                        href="{% url 'about' %}">
                         <i class="nav-main-link-icon si si-info"></i>
                         <span class="nav-main-link-name">About</span>
                     </a>
