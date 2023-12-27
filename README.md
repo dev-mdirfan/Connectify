@@ -9,10 +9,19 @@ Connectify is a social media platform that allows users to connect with each oth
 
 ## Features
 
-### 1. User Authentication
+### Account App: 1. User Authentication
 
 - Users can sign up and log in to their accounts.
 - Users can reset their passwords.
+
+2 Tests are failing in this app.
+
+### Posts App: 1. Create Post
+
+- Users can create, edit, delete posts.
+- Users can view all posts.
+
+I'have to write tests for this app.
 
 For more details, see [User Authentication](user-authentication.md).
 
