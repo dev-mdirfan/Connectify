@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages, auth
 
-
 def register(request):
     '''
     Register view for user model.
@@ -24,10 +23,11 @@ def register(request):
 
     if request.method == 'POST':
         # Get form data
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
-        confirm_password = request.POST['confirm_password']
+        username = request.POST['signup-username']
+        email = request.POST['signup-email']
+        password = request.POST['signup-password']
+        confirm_password = request.POST['signup-password-confirm']
+        terms = request.POST.get('signup-terms')
 
         # Check if username meets the length requirement
         if len(username) < 3:
@@ -39,13 +39,14 @@ def register(request):
             messages.error(request, 'Passwords do not match.')
             return redirect('register')
 
-        # Check if username already exists
-        if User.objects.filter(username=username).exists():
+        if User.objects.filter(username=username).exists() and User.objects.filter(email=email).exists():
+            # Check if username and email already exist
+            messages.error(request, 'Username and email are already taken.')
+        elif User.objects.filter(username=username).exists():
+            # Check if username already exists
             messages.error(request, 'Username is already taken.')
-            return redirect('register')
-
-        # Check if email already exists
-        if User.objects.filter(email=email).exists():
+        elif User.objects.filter(email=email).exists():
+            # Check if email already exists
             messages.error(request, 'Email is already taken.')
             return redirect('register')
 
@@ -54,7 +55,10 @@ def register(request):
         user.save()
 
         messages.success(request, 'Registration successful. You can now log in.')
-        return redirect('login')
+        # user is automatically logged in after registration
+        user = auth.authenticate(username=username, password=password)
+        auth.login(request, user)
+        return redirect('index')
 
     else:
         # Render the registration form
@@ -115,6 +119,6 @@ def logout(request):
     # Log out the user
     auth.logout(request)
     messages.success(request, 'Logout successful.')
-    return redirect('login')
+    return redirect('index')
 
 

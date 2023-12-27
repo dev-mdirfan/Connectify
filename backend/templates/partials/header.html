@@ -158,7 +158,7 @@
                             <span class="badge rounded-pill bg-primary ms-2">3</span>
                         </a>
                         <a class="dropdown-item d-flex align-items-center justify-content-between"
-                            href="be_pages_generic_profile.html">
+                            href="{% url 'profile' request.user.profile.id %}">
                             <span class="fs-sm fw-medium">Profile</span>
                             <span class="badge rounded-pill bg-primary ms-2">1</span>
                         </a>
@@ -174,7 +174,7 @@
                             <span class="fs-sm fw-medium">Lock Account</span>
                         </a>
                         <a class="dropdown-item d-flex align-items-center justify-content-between"
-                            href="op_auth_signin.html">
+                            href="{% url 'logout' %}">
                             <span class="fs-sm fw-medium">Log Out</span>
                         </a>
                     </div>

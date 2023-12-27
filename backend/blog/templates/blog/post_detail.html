@@ -1,0 +1,539 @@
+{% extends 'connectify/app.html' %}
+{% load static %}
+{% load my_filters %}
+
+{% block title %}Blog{% endblock title %}
+
+{% block styles %}
+<!-- Stylesheets -->
+<!-- Page JS Plugins CSS -->
+<link rel="stylesheet" href="{% static 'assets/js/plugins/highlightjs/styles/atom-one-dark.css' %}">
+
+<!-- Stylesheets -->
+<!-- Page JS Plugins CSS -->
+<link rel="stylesheet" href="{% static 'assets/js/plugins/slick-carousel/slick.css' %}">
+<link rel="stylesheet" href="{% static 'assets/js/plugins/slick-carousel/slick-theme.css' %}">
+{% endblock styles %}
+
+{% block content %}
+<!-- Main Container -->
+<main id="main-container">
+    <!-- Hero Content -->
+    <div class="bg-image" style="background-image: url({{post.thumbnail.url}})">
+        <div class="bg-primary-dark-op">
+            <!-- Adding Back button -->
+            <div class="content">
+                <a class="btn btn-sm btn-alt-secondary" href="{% url 'blog' %}">
+                    <i class="fa fa-arrow-left me-1 text-danger"></i> Back
+                </a>
+            </div>
+            <div class="content content-full text-center">
+                <h1 class="h2 text-white mb-2">
+                    {{ post.title }}
+                </h1>
+                <h2 class="h4 fw-normal text-white-75">
+                    10 Lessons &bull; {{ post.get_readtime }}
+                </h2>
+            </div>
+        </div>
+    </div>
+    <!-- END Hero Content -->
+
+    <!-- Navigation -->
+    <div class="bg-body-extra-light">
+        <div class="content content-boxed py-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-alt">
+                    <!-- Getting paths separately -->
+                    {% with path=request.path|split_string:'/' %}
+                    <li class="breadcrumb-item">
+                        <a class="link-fx" href="{% url 'blog' %}">{{ path.1 }}</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a class="link-fx" href="{% url 'post-detail' post.id %}">
+                            {{ post.title}}
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item" aria-current="page">
+                        1.1 HTML5 Intro
+                    </li>
+                    {% endwith %}
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- END Navigation -->
+
+    <!-- Page Content -->
+    <div class="content content-boxed">
+        <div class="row">
+            <div class="col-xl-8">
+                <!-- Lesson -->
+                <!-- Syntax Highlighting functionality is initialized in Helpers.jsHighlightjs() -->
+                <!-- For more info and examples you can check out https://highlightjs.org/usage/ -->
+                <div class="block block-rounded">
+                    <div class="block-header block-header-default">
+                        <div class="block-title">
+                            <!-- <h3>Hey all! I just signed up!</h3> -->
+                            <a class="fw-semibold text-dark" href="javascript:void(0)">
+                                <i class="fa fa-fw fa-eye opacity-50 me-1"></i> {{ post.views }}
+                            </a>
+                            
+                            <a class="fw-semibold text-dark" href="javascript:void(0)">
+                                <i class="fa fa-fw fa-eye opacity-50 me-1"></i> {{ post.views }}
+                            </a>
+                        </div>
+                        <div class="block-options">
+                            <a class="btn btn-sm btn-alt-primary me-2" href="#foru">
+                                <i class="fa fa-share me-1"></i> Share
+                            </a>
+                            <button type="button" class="btn-block-option" data-toggle="block-option"
+                                data-action="fullscreen_toggle">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="block-content">
+                        <h3>1.1 HTML5 Intro (free preview)</h3>
+                        <p>Potenti elit lectus augue eget iaculis vitae etiam, ullamcorper etiam bibendum ad feugiat
+                            magna accumsan dolor, nibh molestie cras hac ac ad massa, fusce ante convallis ante urna
+                            molestie vulputate bibendum tempus ante justo arcu erat accumsan adipiscing risus, libero
+                            condimentum venenatis sit nisl nisi ultricies sed, fames aliquet consectetur consequat
+                            nostra molestie neque nullam scelerisque neque commodo turpis quisque etiam egestas
+                            vulputate massa, curabitur tellus massa venenatis congue dolor enim integer luctus, nisi
+                            suscipit gravida fames quis vulputate nisi viverra luctus id leo dictum lorem, inceptos nibh
+                            orci.</p>
+                        <pre class="push"><code class="html">&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Your content --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        <p>Potenti elit lectus augue eget iaculis vitae etiam, ullamcorper etiam bibendum ad feugiat
+                            magna accumsan dolor, nibh molestie cras hac ac ad massa, fusce ante convallis ante urna
+                            molestie vulputate bibendum tempus ante justo arcu erat accumsan adipiscing risus, libero
+                            condimentum venenatis sit nisl nisi ultricies sed, fames aliquet consectetur consequat
+                            nostra molestie neque nullam scelerisque neque commodo turpis quisque etiam egestas
+                            vulputate massa, curabitur tellus massa venenatis congue dolor enim integer luctus, nisi
+                            suscipit gravida fames quis vulputate nisi viverra luctus id leo dictum lorem, inceptos nibh
+                            orci.</p>
+                        <div class="alert alert-warning text-center">
+                            <i class="fa fa-exclamation-triangle me-1"></i> This is an attention message.
+                        </div>
+                        <p>Potenti elit lectus augue eget iaculis vitae etiam, ullamcorper etiam bibendum ad feugiat
+                            magna accumsan dolor, nibh molestie cras hac ac ad massa, fusce ante convallis ante urna
+                            molestie vulputate bibendum tempus ante justo arcu erat accumsan adipiscing risus, libero
+                            condimentum venenatis sit nisl nisi ultricies sed, fames aliquet consectetur consequat
+                            nostra molestie neque nullam scelerisque neque commodo turpis quisque etiam egestas
+                            vulputate massa, curabitur tellus massa venenatis congue dolor enim integer luctus, nisi
+                            suscipit gravida fames quis vulputate nisi viverra luctus id leo dictum lorem, inceptos nibh
+                            orci.</p>
+                        <pre class="push"><code class="html">&lt;div id=&quot;id-name&quot; class=&quot;class-name&quot;&gt;
+&lt;!-- This is a comment --&gt;
+&lt;/div&gt;</code></pre>
+                        <p class="fw-semibold">Things to do:</p>
+                        <ul class="fa-ul list list-simple-mini push">
+                            <li>
+                                <i class="fa fa-check fa-li text-success"></i>
+                                Make sure you are always closing your tags.
+                            </li>
+                            <li>
+                                <i class="fa fa-check fa-li text-success"></i>
+                                Keep writing markup to become more familiar.
+                            </li>
+                            <li>
+                                <i class="fa fa-check fa-li text-success"></i>
+                                Create your own projects.
+                            </li>
+                        </ul>
+                        <p class="alert alert-success text-center">
+                            <i class="fa fa-thumbs-up me-1"></i> Congrats! Let's head up to the next lesson.
+                        </p>
+                    </div>
+                </div>
+                <div class="block block-rounded">
+                    <div class="block-header block-header-default">
+                        <h3 class="block-title">Comments</h3>
+                        <div class="block-options">
+                            <a class="btn-block-option text-default me-2" href="#forum-reply-form">
+                                <i class="fa fa-reply me-1"></i> Reply
+                            </a>
+                        </div>
+                    </div>
+                    <div class="block-content">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr class="bg-body-light">
+                                    <td class="d-none d-sm-table-cell"></td>
+                                    <td class="fs-sm text-muted">
+                                        <a class="fw-semibold" href="be_pages_generic_profile.html">Megan Fuller</a>
+                                        on <span class="text-muted">July 1, 2019 16:15</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="d-none d-sm-table-cell text-center" style="width: 140px;">
+                                        <p>
+                                            <a href="be_pages_generic_profile.html">
+                                                <img class="img-avatar" src="assets/media/avatars/avatar3.jpg" alt="">
+                                            </a>
+                                        </p>
+                                        <p class="fs-sm fw-medium">426 Posts<br>Level 3</p>
+                                    </td>
+                                    <td>
+                                        <p>Potenti elit lectus augue eget iaculis vitae etiam, ullamcorper etiam
+                                            bibendum ad feugiat magna
+                                            accumsan dolor, nibh molestie cras hac ac ad massa, fusce ante convallis
+                                            ante urna molestie
+                                            vulputate bibendum tempus ante justo arcu erat accumsan adipiscing
+                                            risus, libero condimentum
+                                            venenatis sit nisl nisi ultricies sed, fames aliquet consectetur
+                                            consequat nostra molestie neque
+                                            nullam scelerisque neque commodo turpis quisque etiam egestas vulputate
+                                            massa, curabitur tellus
+                                            massa venenatis congue dolor enim integer luctus, nisi suscipit gravida
+                                            fames quis vulputate nisi
+                                            viverra luctus id leo dictum lorem, inceptos nibh orci.</p>
+                                        <p>Potenti elit lectus augue eget iaculis vitae etiam, ullamcorper etiam
+                                            bibendum ad feugiat magna
+                                            accumsan dolor, nibh molestie cras hac ac ad massa, fusce ante convallis
+                                            ante urna molestie
+                                            vulputate bibendum tempus ante justo arcu erat accumsan adipiscing
+                                            risus, libero condimentum
+                                            venenatis sit nisl nisi ultricies sed, fames aliquet consectetur
+                                            consequat nostra molestie neque
+                                            nullam scelerisque neque commodo turpis quisque etiam egestas vulputate
+                                            massa, curabitur tellus
+                                            massa venenatis congue dolor enim integer luctus, nisi suscipit gravida
+                                            fames quis vulputate nisi
+                                            viverra luctus id leo dictum lorem, inceptos nibh orci.</p>
+                                        <hr>
+                                        <p class="fs-sm text-muted">There is only one way to avoid criticism: do
+                                            nothing, say nothing, and
+                                            be nothing.</p>
+                                    </td>
+                                </tr>
+                                <tr class="bg-body-light">
+                                    <td class="d-none d-sm-table-cell"></td>
+                                    <td class="fs-sm text-muted">
+                                        <a class="fw-semibold" href="be_pages_generic_profile.html">David Fuller</a>
+                                        on <span class="text-muted">July 10, 2019 10:09</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="d-none d-sm-table-cell text-center" style="width: 140px;">
+                                        <p>
+                                            <a href="be_pages_generic_profile.html">
+                                                <img class="img-avatar" src="assets/media/avatars/avatar12.jpg" alt="">
+                                            </a>
+                                        </p>
+                                        <p class="fs-sm fw-medium">484 Posts<br>Level 4</p>
+                                    </td>
+                                    <td>
+                                        <p>Felis ullamcorper curae erat nulla luctus sociosqu phasellus posuere
+                                            habitasse sollicitudin,
+                                            libero sit potenti leo ultricies etiam blandit id platea augue, erat
+                                            habitant fermentum lorem
+                                            commodo taciti tristique etiam curabitur suscipit lacinia habitasse amet
+                                            mauris eu eget ipsum nec
+                                            magna in, adipiscing risus aenean turpis proin duis fringilla praesent
+                                            ornare lorem eros malesuada
+                                            vitae nullam diam velit potenti consectetur, vehicula accumsan risus
+                                            lectus tortor etiam facilisis
+                                            tempus sapien tortor, mi vestibulum taciti dapibus viverra ac justo
+                                            vivamus erat phasellus turpis
+                                            nisi class praesent duis ligula, vel ornare faucibus potenti nibh
+                                            turpis, at id semper nunc dui
+                                            blandit. Enim et nec habitasse ultricies id tortor curabitur,
+                                            consectetur eu inceptos ante conubia
+                                            tempor platea odio, sed sem integer lacinia cras non risus euismod
+                                            turpis platea erat ultrices
+                                            iaculis rutrum taciti, fusce lobortis adipiscing dapibus habitant
+                                            sodales gravida pulvinar,
+                                            elementum mi tempus ut commodo congue ipsum justo nec dui cursus
+                                            scelerisque elementum volutpat
+                                            tellus nulla laoreet taciti, nibh suspendisse primis arcu integer
+                                            vulputate etiam ligula lobortis
+                                            nunc, interdum commodo libero aliquam suscipit phasellus sollicitudin
+                                            arcu varius venenatis erat
+                                            ornare tempor nullam donec vitae etiam tellus.</p>
+                                        <hr>
+                                        <p class="fs-sm text-muted">Be yourself; everyone else is already taken.</p>
+                                    </td>
+                                </tr>
+                                <tr class="bg-body-light">
+                                    <td class="d-none d-sm-table-cell"></td>
+                                    <td class="fs-sm text-muted">
+                                        <a class="fw-semibold" href="be_pages_generic_profile.html">Albert Ray</a>
+                                        on <span class="text-muted">July 15, 2019 20:17</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="d-none d-sm-table-cell text-center" style="width: 140px;">
+                                        <p>
+                                            <a href="be_pages_generic_profile.html">
+                                                <img class="img-avatar" src="assets/media/avatars/avatar10.jpg" alt="">
+                                            </a>
+                                        </p>
+                                        <p class="fs-sm fw-medium">189 Posts<br>Level 7</p>
+                                    </td>
+                                    <td>
+                                        <p>Potenti elit lectus augue eget iaculis vitae etiam, ullamcorper etiam
+                                            bibendum ad feugiat magna
+                                            accumsan dolor, nibh molestie cras hac ac ad massa, fusce ante convallis
+                                            ante urna molestie
+                                            vulputate bibendum tempus ante justo arcu erat accumsan adipiscing
+                                            risus, libero condimentum
+                                            venenatis sit nisl nisi ultricies sed, fames aliquet consectetur
+                                            consequat nostra molestie neque
+                                            nullam scelerisque neque commodo turpis quisque etiam egestas vulputate
+                                            massa, curabitur tellus
+                                            massa venenatis congue dolor enim integer luctus, nisi suscipit gravida
+                                            fames quis vulputate nisi
+                                            viverra luctus id leo dictum lorem, inceptos nibh orci.</p>
+                                        <p>Potenti elit lectus augue eget iaculis vitae etiam, ullamcorper etiam
+                                            bibendum ad feugiat magna
+                                            accumsan dolor, nibh molestie cras hac ac ad massa, fusce ante convallis
+                                            ante urna molestie
+                                            vulputate bibendum tempus ante justo arcu erat accumsan adipiscing
+                                            risus, libero condimentum
+                                            venenatis sit nisl nisi ultricies sed, fames aliquet consectetur
+                                            consequat nostra molestie neque
+                                            nullam scelerisque neque commodo turpis quisque etiam egestas vulputate
+                                            massa, curabitur tellus
+                                            massa venenatis congue dolor enim integer luctus, nisi suscipit gravida
+                                            fames quis vulputate nisi
+                                            viverra luctus id leo dictum lorem, inceptos nibh orci.</p>
+                                        <p>Potenti elit lectus augue eget iaculis vitae etiam, ullamcorper etiam
+                                            bibendum ad feugiat magna
+                                            accumsan dolor, nibh molestie cras hac ac ad massa, fusce ante convallis
+                                            ante urna molestie
+                                            vulputate bibendum tempus ante justo arcu erat accumsan adipiscing
+                                            risus, libero condimentum
+                                            venenatis sit nisl nisi ultricies sed, fames aliquet consectetur
+                                            consequat nostra molestie neque
+                                            nullam scelerisque neque commodo turpis quisque etiam egestas vulputate
+                                            massa, curabitur tellus
+                                            massa venenatis congue dolor enim integer luctus, nisi suscipit gravida
+                                            fames quis vulputate nisi
+                                            viverra luctus id leo dictum lorem, inceptos nibh orci.</p>
+                                        <hr>
+                                        <p class="fs-sm text-muted">Don't cry because it's over, smile because it
+                                            happened.</p>
+                                    </td>
+                                </tr>
+                                <tr class="bg-body-light">
+                                    <td class="d-none d-sm-table-cell"></td>
+                                    <td class="fs-sm text-muted">
+                                        <a class="fw-semibold" href="be_pages_generic_profile.html">Judy Ford</a> on
+                                        <span class="text-muted">July 20, 2019 20:29</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="d-none d-sm-table-cell text-center" style="width: 140px;">
+                                        <p>
+                                            <a href="be_pages_generic_profile.html">
+                                                <img class="img-avatar" src="assets/media/avatars/avatar6.jpg" alt="">
+                                            </a>
+                                        </p>
+                                        <p class="fs-sm fw-medium">445 Posts<br>Level 6</p>
+                                    </td>
+                                    <td>
+                                        <p>Potenti elit lectus augue eget iaculis vitae etiam, ullamcorper etiam
+                                            bibendum ad feugiat magna
+                                            accumsan dolor, nibh molestie cras hac ac ad massa, fusce ante convallis
+                                            ante urna molestie
+                                            vulputate bibendum tempus ante justo arcu erat accumsan adipiscing
+                                            risus, libero condimentum
+                                            venenatis sit nisl nisi ultricies sed, fames aliquet consectetur
+                                            consequat nostra molestie neque
+                                            nullam scelerisque neque commodo turpis quisque etiam egestas vulputate
+                                            massa, curabitur tellus
+                                            massa venenatis congue dolor enim integer luctus, nisi suscipit gravida
+                                            fames quis vulputate nisi
+                                            viverra luctus id leo dictum lorem, inceptos nibh orci.</p>
+                                        <p>Potenti elit lectus augue eget iaculis vitae etiam, ullamcorper etiam
+                                            bibendum ad feugiat magna
+                                            accumsan dolor, nibh molestie cras hac ac ad massa, fusce ante convallis
+                                            ante urna molestie
+                                            vulputate bibendum tempus ante justo arcu erat accumsan adipiscing
+                                            risus, libero condimentum
+                                            venenatis sit nisl nisi ultricies sed, fames aliquet consectetur
+                                            consequat nostra molestie neque
+                                            nullam scelerisque neque commodo turpis quisque etiam egestas vulputate
+                                            massa, curabitur tellus
+                                            massa venenatis congue dolor enim integer luctus, nisi suscipit gravida
+                                            fames quis vulputate nisi
+                                            viverra luctus id leo dictum lorem, inceptos nibh orci.</p>
+                                        <hr>
+                                        <p class="fs-sm text-muted">Strive not to be a success, but rather to be of
+                                            value.</p>
+                                    </td>
+                                </tr>
+                                <tr class="table-active">
+                                    <td class="d-none d-sm-table-cell"></td>
+                                    <td class="fs-sm text-muted">
+                                        <a class="fw-semibold" href="be_pages_generic_profile.html">Henry
+                                            Harrison</a> Just now
+                                    </td>
+                                </tr>
+                                <tr id="forum-reply-form">
+                                    <td class="d-none d-sm-table-cell text-center">
+                                        <p>
+                                            <a href="be_pages_generic_profile.html">
+                                                <img class="img-avatar"
+                                                    src="{{ request.user.profile.profile_image.url }}" alt="">
+                                            </a>
+                                        </p>
+                                        <p class="fs-sm fw-medium">493 Posts<br>Level 1</p>
+                                    </td>
+                                    <td>
+                                        <form action="be_pages_forum_discussion.html" method="POST">
+                                            <div class="mb-4">
+                                                <label class="form-label"
+                                                    for="example-textarea-input-alt">Comment:</label>
+                                                <textarea class="form-control form-control-alt"
+                                                    id="example-textarea-input-alt" name="example-textarea-input-alt"
+                                                    rows="7" placeholder="Reply.."></textarea>
+                                            </div>
+                                            <div class="mb-4">
+                                                <button type="submit" class="btn btn-alt-primary">
+                                                    <i class="fa fa-reply me-1 opacity-50"></i> Reply
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END Lesson -->
+            </div>
+            <div class="col-xl-4">
+                <!-- About Author -->
+                <a class="block block-rounded block-link-shadow" href="{% url 'profile' post.author.profile.id %}">
+                    <div class="block-header block-header-default text-center">
+                        <h3 class="block-title">About Author</h3>
+                    </div>
+                    <div class="block-content block-content-full text-center">
+                        <div class="push">
+                            <img class="img-avatar" src="{{ post.author.profile.profile_image.url }}" alt="">
+                        </div>
+                        <div class="fw-semibold mb-1 link-primary">
+                            {{ post.author.profile.name }}
+                        </div>
+                        <div class="fs-sm text-muted">{{ post.author.profile.bio }}</div>
+                    </div>
+                </a>
+                <!-- END About Author -->
+
+                <!-- Slider with Avatars -->
+                <div class="block block-rounded">
+                    <div class="block-header block-header-default">
+                        <h3 class="block-title">Latest Articles of Author</h3>
+                    </div>
+                    <div class="block-content">
+                        <div class="js-slider text-center" data-autoplay="true" data-dots="true" data-arrows="true">
+                            {% for post in author_posts %}
+                            <!-- Story -->
+                            <div class="block block-rounded">
+                                <div class="block-content pb-8 text-end bg-image"
+                                    style="background-image: url({{post.thumbnail.url}});">
+                                    <span class="badge bg-primary fw-bold p-2 text-uppercase">
+                                        Travel
+                                    </span>
+                                </div>
+                                <div class="block-content">
+                                    <a class="fw-semibold text-dark" href="javascript:void(0)">
+                                        {{ post.title }}
+                                    </a>
+                                    <p class="fs-sm fw-medium text-muted">
+                                        {{ post.author.profile.name }} &middot; {{ post.get_readtime }}
+                                    </p>
+                                </div>
+                                <div class="block-content block-content-full bg-body-light">
+                                    <div class="row g-0 fs-sm text-center">
+                                        <div class="col-4">
+                                            <a class="text-muted fw-semibold" href="javascript:void(0)">
+                                                <i class="fa fa-fw fa-eye opacity-50 me-1"></i> {{ post.views }}
+                                            </a>
+                                        </div>
+                                        <div class="col-4">
+                                            <a class="text-muted fw-semibold" href="javascript:void(0)">
+                                                <i class="fa fa-fw fa-heart opacity-50 me-1"></i> {{ post.likes }}
+                                            </a>
+                                        </div>
+                                        <div class="col-4">
+                                            <a class="text-muted fw-semibold" href="javascript:void(0)">
+                                                <i class="fa fa-fw fa-comments opacity-50 me-1"></i> 12
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END Story -->
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <!-- END Slider with Avatars -->
+
+                <!-- Subscribe -->
+                <div class="block block-rounded">
+                    <div class="block-content">
+                        <a class="btn btn-primary w-100 mb-2" href="javascript:void(0)">Subscribe from $9/month</a>
+                        <p class="fs-sm text-center">
+                            or <a class="link-effect fw-medium" href="javascript:void(0)">buy this course for $28</a>
+                        </p>
+                        <a class="btn btn-primary w-100 disabled push" href="javascript:void(0)">
+                            <i class="fa fa-download me-1"></i> Download
+                        </a>
+                    </div>
+                </div>
+                <!-- END Subscribe -->
+
+            </div>
+        </div>
+    </div>
+    <!-- END Page Content -->
+
+    <!-- Get Started -->
+    <div class="bg-body-dark">
+        <div class="content content-full text-center py-6">
+            <h3 class="h4 mb-4">
+                Subscribe today and learn HTML5 in under 3 hours.
+            </h3>
+            <a class="btn btn-primary px-4 py-2" href="javascript:void(0)">Subscribe from $9/month</a>
+        </div>
+    </div>
+    <!-- END Get Started -->
+</main>
+<!-- END Main Container -->
+{% endblock content %}
+
+{% block scripts %}
+<!-- Page JS Plugins -->
+<script src="{% static 'assets/js/plugins/highlightjs/highlight.pack.min.js' %}"></script>
+
+<!-- Page JS Helpers (Highlight.js Plugin) -->
+<script>One.helpersOnLoad(['js-highlightjs']);</script>
+
+<!-- Page JS Plugins -->
+<script src="{% static 'assets/js/plugins/ckeditor5-classic/build/ckeditor.js' %}"></script>
+
+<!-- Page JS Helpers (CKEditor 5 plugins) -->
+<script>One.helpersOnLoad(['js-ckeditor5']);</script>
+
+<!-- jQuery (required for Slick Slider plugin) -->
+<script src="{% static 'assets/js/lib/jquery.min.js' %}"></script>
+
+<!-- Page JS Plugins -->
+<script src="{% static 'assets/js/plugins/slick-carousel/slick.min.js' %}"></script>
+
+<!-- Page JS Helpers (Slick Slider Plugin) -->
+<script>One.helpersOnLoad(['jq-slick']);</script>
+{% endblock scripts %}

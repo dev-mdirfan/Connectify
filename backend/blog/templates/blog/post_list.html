@@ -1,23 +1,67 @@
 {% extends 'connectify/app.html' %}
 {% load static %}
+{% load my_filters %}
 
-{% block title %}Blog{% endblock %}
+{% block title %}Blog{% endblock title %}
 
 {% block content %}
 <!-- Main Container -->
 <main id="main-container">
-    <!-- Hero Content -->
-    <div class="bg-primary-dark">
-        <div class="content content-full overflow-hidden pt-7 pb-6 text-center">
-            <h1 class="h2 text-white mb-2">
-                The latest stories only for you.
-            </h1>
-            <h2 class="h4 fw-normal text-white-75 mb-0">
-                Feel free to explore and read.
-            </h2>
+    <!-- Navigation -->
+    <div class="bg-body-light">
+        <div class="content content-full">
+            <div class="justify-content-sm-between align-items-sm-center">
+                <div class="flex-grow-1">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-alt push block-title">
+                            {% with path=request.path|split_string:'/' %}
+                            <li class="breadcrumb-item">
+                                <a class="link-fx" href="{% url 'index' %}">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <a class="link-fx" href="{% url 'blog' %}">{{ path.1|capfirst }}</a>
+                            </li>
+                            {% endwith %}
+                        </ol>
+                    </nav>
+                </div>
+                <div class="d-flex flex-column flex-sm-row justify-content-sm-between">
+                    <div>
+                        <a class="btn btn-sm btn-alt-primary me-3" href="">
+                            <i class="fa fa-fw fa-plus me-1"></i> New Article
+                        </a>
+                    </div>
+                    <div class="dropdown d-inline-block">
+                        <button class="btn btn-sm btn-alt-secondary dropdown-toggle" type="button" id="filterDropdown"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-fw fa-filter me-1"></i> Filter
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                            <li>
+                                <form method="GET">
+                                    <input type="hidden" name="filter_option" value="latest">
+                                    <button type="submit" class="dropdown-item">Latest Articles</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form method="GET">
+                                    <input type="hidden" name="filter_option" value="popular_likes">
+                                    <button type="submit" class="dropdown-item">Most Likes Articles</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form method="GET">
+                                    <input type="hidden" name="filter_option" value="popular_views">
+                                    <button type="submit" class="dropdown-item">Most Views Articles</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- END Hero Content -->
+    <!-- END Navigation -->
 
     <!-- Page Content -->
     <div class="content content-boxed">
@@ -29,20 +73,20 @@
                     <div class="block-content">
                         <div class="row items-push">
                             <div class="col-md-4 col-lg-5">
-                                <a class="img-link img-link-simple" href="{{ post.thumbnail.url }}">
+                                <a class="img-link img-link-simple" href="{% url 'post-detail' post.id %}">
                                     <img class="img-fluid rounded" src="{{ post.thumbnail.url }}" alt="" width="300px"
                                         height="200px">
                                 </a>
                             </div>
                             <div class="col-md-8 col-lg-7 d-md-flex align-items-center">
                                 <div>
-                                    <h4 class="mb-1">
-                                        <a class="text-dark" href="be_pages_blog_story.html">
+                                    <h4 class="mb-2">
+                                        <a class="text-dark" href="{% url 'post-detail' post.id %}">
                                             {{ post.title}}
                                         </a>
                                     </h4>
-                                    <div class="fs-sm fw-medium">
-                                        <a href="">
+                                    <div class="fs-sm fw-medium mb-2">
+                                        <a href="{% url 'profile' post.author.profile.id %}">
                                             <img class="rounded-circle me-1"
                                                 src="{{ post.author.profile.profile_image.url }}" alt="Header Avatar"
                                                 style="width: 21px;">
@@ -54,7 +98,8 @@
                                     </div>
                                     <p class="fs-sm text-muted">
                                         {{ post.content|truncatewords:23 }}
-                                        <a class="btn btn-sm btn-alt-secondary float-end" href="javascript:void(0)">
+                                        <a class="btn btn-sm btn-alt-secondary float-end"
+                                            href="{% url 'post-detail' post.id %}">
                                             More <i class="fa fa-fw fa-arrow-right ms-1"></i>
                                         </a>
                                     </p>
@@ -66,7 +111,7 @@
                         <div class="row g-0 fs-sm text-center">
                             <div class="col-3">
                                 <a class="text-muted fw-semibold" href="javascript:void(0)">
-                                    <span class="badge bg-success fw-bold p-2 text-uppercase">
+                                    <span class="badge bg-primary fw-bold p-2 text-uppercase">
                                         Coding
                                     </span>
                                 </a>

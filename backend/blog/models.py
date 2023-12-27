@@ -133,7 +133,7 @@ class Post(models.Model):
         return result.text 
 
 @transaction.atomic
-def increment_counter(pk):
+def increment_views(pk):
     # Use select_for_update to lock the row during the transaction
     post = Post.objects.select_for_update().get_or_create(pk=pk)[0]
 
@@ -147,17 +147,25 @@ def increment_counter(pk):
 
 
 @transaction.atomic
-def increment_likes(post_id, user):
+def toggle_likes(post_id, user):
     # Use select_for_update to lock the row during the transaction
     post = Post.objects.select_for_update().get_or_create(pk=post_id)[0]
 
-    # Increment the likes count directly in the database
-    Post.objects.filter(pk=post_id).update(likes=F('likes') + 1)
-
-    # Create a new Like instance to associate the user with the post
-    Like.objects.create(user=user, post=post)
+    # Check if the user has already liked the post
+    liked = Like.objects.filter(user=user, post=post).exists()
+    
+    if liked:
+        # User has already liked the post, remove the like
+        Like.objects.filter(user=user, post=post).delete()
+        # Decrement the likes count directly in the database
+        Post.objects.filter(pk=post_id).update(likes=F('likes') - 1)
+    else:
+        # User has not liked the post, add a like
+        Like.objects.create(user=user, post=post)
+        # Increment the likes count directly in the database
+        Post.objects.filter(pk=post_id).update(likes=F('likes') + 1)
 
     # Retrieve the updated value
     updated_value = post.likes
 
-    return updated_value
+    return updated_value, not liked

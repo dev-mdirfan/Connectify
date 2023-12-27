@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <title>{% block title %} {% endblock title %} - Where Connections Unite!</title>
+    <title>{% block title %} {% endblock title %} | {{ brand_name }} - {{ slogan }}</title>
 
     <meta name="description"
         content="Connectify - Where Connections Unite! &amp; Connectify is a social media platform that allows users to connect with each other and share their thoughts and ideas. Users can create posts, like and comment on posts, and follow other users.">
@@ -36,6 +36,9 @@
 
     <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
     <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/amethyst.min.css"> -->
+    <!-- Including Styles -->
+    {% block styles %}
+    {% endblock styles %}
     <!-- END Stylesheets -->
 </head>
 

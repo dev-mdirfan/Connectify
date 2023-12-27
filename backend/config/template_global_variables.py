@@ -6,7 +6,8 @@ def global_variables(request):
     brand_name = "Connectify"
 
     # Slogan
-    slogan = "Stay connected, anytime, anywhere"
+    # slogan = "Stay connected, anytime, anywhere"
+    slogan = "Where Connections Unite!"
 
     # Version
     version = "1.0"

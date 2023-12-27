@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, increment_counter, increment_likes
+from .models import Post, increment_views, toggle_likes
 
 
 class PostListView(ListView):
@@ -16,6 +16,30 @@ class PostListView(ListView):
     context_object_name = 'posts'
     ordering = ['-created_at']
     paginate_by = 10
+
+    def get_queryset(self):
+        """
+        Override the get_queryset method to add filter options.
+        """
+        queryset = super().get_queryset()
+
+        # Get the filter option from the request
+        filter_option = self.request.GET.get('filter_option')
+
+        if filter_option == 'latest':
+            # Filter by latest posts
+            queryset = queryset.order_by('-updated_at')
+        elif filter_option == 'popular_likes':
+            # Filter by popular posts based on likes
+            queryset = queryset.order_by('-likes')
+        elif filter_option == 'popular_views':
+            # Filter by popular posts based on views
+            queryset = queryset.order_by('-views')
+        else:
+            # Default queryset
+            queryset = queryset.order_by('-created_at')
+
+        return queryset
 
 class PostDetailView(DetailView):
     """
@@ -30,26 +54,38 @@ class PostDetailView(DetailView):
         Increment the view count when the detail view is visited.
         """
         # Increment the view count when the detail view is visited
-        increment_counter(self.kwargs['pk'])
+        increment_views(self.kwargs['pk'])
         return super().get(request, *args, **kwargs)
     
     def post(self, request, *args, **kwargs):
         """
         Handle the POST request for the post detail view.
-        If the 'like' parameter is present in the request, increment the likes count.
+        If the 'like' parameter is present in the request, toggle the likes count.
         """
         post = self.get_object()
 
         if request.POST.get('like'):
-            # Ensure the user is authenticated before incrementing likes
+            # Ensure the user is authenticated before toggling likes
             if request.user.is_authenticated:
-                # Increment the likes count for the post
-                updated_likes = increment_likes(post.pk, request.user)
-                return HttpResponse(f"Likes incremented to {updated_likes}")
+                # Toggle the likes count
+                updated_likes, liked = toggle_likes(post.pk, request.user)
+                if liked:
+                    return HttpResponse(f"Post liked. Likes incremented to {updated_likes}")
+                else:
+                    return HttpResponse(f"Post unliked. Likes decremented to {updated_likes}")
             else:
-                return HttpResponse("User must be authenticated to like a post")
+                return HttpResponse("User must be authenticated to like/unlike a post")
 
         return super().post(request, *args, **kwargs)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Retrieve the author's latest six posts
+        author_posts = Post.objects.filter(author=self.object.author).exclude(pk=self.object.pk).order_by('-created_at')[:6]
+
+        context['author_posts'] = author_posts
+        return context
 
 '''
 class LikeView(View):

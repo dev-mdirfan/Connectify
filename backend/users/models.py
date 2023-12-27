@@ -69,6 +69,14 @@ class Profile(models.Model):
             bg_img = Image.open(self.profile_background.path)
             # Process the background image as needed
             bg_img.save(self.profile_background.path)
+    
+    def name(self):
+        """
+        Returns the name of the user.
+        """
+        if self.user.first_name == "" and self.user.last_name == "":
+            return self.user.username
+        return self.user.first_name + " " + self.user.last_name
 
 
 
