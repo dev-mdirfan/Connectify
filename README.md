@@ -4,10 +4,25 @@ Connectify is a social media platform that allows users to connect with each oth
 
 - [Brand Details](brand-info.md)
 
+## Preview
+
+| Login Page | Register Page |
+| --- | --- |
+| ![Home Page](./demo/screenshots/sign-in.png) | ![Profile Page](./demo/screenshots/sign-up.png) |
+
+
 ## Technologies Used
 
 
 ## Features
+
+1. Sign Up, Login, OAuth 2.0(Google, Github), Logout, Forgot Password
+2. Public Profile view
+3. Create, Edit, Delete Posts with customized text, pictures and links
+4. Like, Comment / Reply, Save and Search posts
+5. Follow and Un-follow users
+6. Friend Request
+7. Notifications
 
 ### Account App: 1. User Authentication
 
