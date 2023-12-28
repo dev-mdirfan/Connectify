@@ -14,16 +14,22 @@ Connectify is a social media platform that allows users to connect with each oth
 - Users can sign up and log in to their accounts.
 - Users can reset their passwords.
 
-2 Tests are failing in this app.
+**Bug Fixes:**
 
-### Posts App: 1. Create Post
+- 2 Tests are failing in this app.
+
+For more details, see [User Authentication](user-authentication.md).
+
+### Blog App: 1. Posts
 
 - Users can create, edit, delete posts.
 - Users can view all posts.
 
-I'have to write tests for this app.
+**Bug Fixes:**
 
-For more details, see [User Authentication](user-authentication.md).
+- Image Cropping: The image cropping feature is not working properly. The image is not being cropped to the specified dimensions.
+- I'have to write tests for this app.
+
 
 ### 2. User Profile
 
