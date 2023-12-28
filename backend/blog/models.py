@@ -9,12 +9,6 @@ from django.db import models, transaction
 from django.db.models import F
 
 
-class Like(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey('Post', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-
 def thumbnail_dir(instance, filename):
     """
     Returns the path to the thumbnail image.
@@ -25,31 +19,32 @@ def thumbnail_dir(instance, filename):
     new_filename = f'{post_title}_thumbnail.{extension}'
     return f'posts/thumbnails/{username}/{new_filename}'
 
+
 class Post(models.Model):
     """
     Represents a blog post in the Connectify application.
-    
+
     It fails to case:
     - thumbnail path does not have post_id
     - image cropping does not work
     """
-
     # Choices for the status of the post
     STATUS_CHOICES = (
         ('draft', 'Draft'),
         ('published', 'Published'),
     )
-
-
     # Fields of the Post model
     title = models.CharField(max_length=255)
+    description = models.TextField(blank=True, help_text='Short description for post highlights')
     content = models.TextField()
-    thumbnail = models.ImageField(upload_to=thumbnail_dir, default='posts/thumbnails/default_thumbnail.jpg', blank=True)
+    thumbnail = models.ImageField(
+        upload_to=thumbnail_dir, default='posts/thumbnails/default_thumbnail.jpg', blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     slug = models.SlugField(max_length=255, unique=True, editable=False)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='published')
+    status = models.CharField(
+        max_length=20, choices=STATUS_CHOICES, default='published')
     views = models.PositiveIntegerField(default=0, editable=False)
     likes = models.PositiveIntegerField(default=0, editable=False)
 
@@ -100,11 +95,11 @@ class Post(models.Model):
                     img.save(self.thumbnail.path)
 
         super().save(*args, **kwargs)
-    
+
     def __str__(self):
         """
         Returns a string representation of the Post object.
-        
+
         :return: The title of the post.
         :rtype: str
         """
@@ -115,22 +110,29 @@ class Post(models.Model):
         Meta class for the Post model.
         """
         ordering = ['-created_at']
-    
+
     def get_absolute_url(self):
         """
         Returns the absolute URL for the blog post.
-        
+
         :return: The absolute URL for the blog post.
         :rtype: str
         """
         return reverse('post-detail', kwargs={'pk': self.pk})
-    
+
     def get_readtime(self):
         """
         Returns the read time of the post.
         """
         result = readtime.of_text(self.content)
-        return result.text 
+        return result.text
+
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
 
 @transaction.atomic
 def increment_views(pk):
@@ -153,7 +155,7 @@ def toggle_likes(post_id, user):
 
     # Check if the user has already liked the post
     liked = Like.objects.filter(user=user, post=post).exists()
-    
+
     if liked:
         # User has already liked the post, remove the like
         Like.objects.filter(user=user, post=post).delete()
@@ -169,3 +171,27 @@ def toggle_likes(post_id, user):
     updated_value = post.likes
 
     return updated_value, not liked
+
+
+# Your get_like_status function
+def get_like_status(post_id, user):
+    """
+    Check if the user has liked the post.
+    """
+    if user.is_authenticated:
+        # Check if the user has liked the post
+        liked = Like.objects.filter(user=user, post_id=post_id).exists()
+        return liked
+    else:
+        return False
+
+
+def get_like_users(post_id):
+    """
+    Return a list of users who liked the post.
+    """
+    # Get all the likes for the post
+    likes = Like.objects.filter(post_id=post_id).order_by('-created_at')
+    # Get the users who liked the post
+    users = [like.user for like in likes]
+    return users

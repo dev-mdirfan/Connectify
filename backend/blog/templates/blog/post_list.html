@@ -27,7 +27,7 @@
                 </div>
                 <div class="d-flex flex-column flex-sm-row justify-content-sm-between">
                     <div>
-                        <a class="btn btn-sm btn-alt-primary me-3" href="">
+                        <a class="btn btn-sm btn-alt-primary me-3" href="{% url 'post-create' %}">
                             <i class="fa fa-fw fa-plus me-1"></i> New Article
                         </a>
                     </div>
@@ -92,12 +92,16 @@
                                                 style="width: 21px;">
                                         </a>
                                         <a href="{% url 'profile' post.author.profile.id %}">
-                                            {{ post.author.first_name }} {{ post.author.last_name }}
+                                            {{ post.author.profile.name }}
                                         </a> on {{ post.updated_at|date:"M d, Y" }} ·
                                         <span class="text-muted">{{ post.get_readtime }}</span>
                                     </div>
                                     <p class="fs-sm text-muted">
-                                        {{ post.content|truncatewords:23 }}
+                                        {% if post.description %}
+                                        {{ post.description|truncatechars:150 }}
+                                        {% else %}
+                                        {{ post.content|truncatechars:150 }}
+                                        {% endif %}
                                         <a class="btn btn-sm btn-alt-secondary float-end"
                                             href="{% url 'post-detail' post.id %}">
                                             More <i class="fa fa-fw fa-arrow-right ms-1"></i>
