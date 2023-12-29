@@ -28,7 +28,17 @@ Connectify is a social media platform that allows users to connect with each oth
 
 ## Features
 
-1. Sign Up, Login, OAuth 2.0(Google, Github), Logout, Forgot Password
+Design and implement the necessary models, views, and templates to create a social media platform that allows users to connect with each other and share their thoughts and ideas. Users should be able to create posts, like and comment on posts, and follow other users. Users should also be able to edit and update their profile information and change their passwords.
+
+- Successfully implement the following features:
+  - **User authentication:** Sign Up, Login, OAuth 2.0(Google, Github), Logout, Forgot Password. [[more details & bug](detailed-features.md)]
+  - Create, edit, and delete posts
+  - Like and unlike posts
+  - Comment and reply to comments on posts
+  - Follow and unfollow other users
+  - View all posts on the home page
+
+1. Allow a user to sign up and log in to their account.
 2. Public Profile view
 3. Create, Edit, Delete Posts with customized text, pictures and links
 4. Like, Comment / Reply, Save and Search posts
