@@ -10,6 +10,18 @@ Connectify is a social media platform that allows users to connect with each oth
 | --- | --- |
 | ![Home Page](./demo/screenshots/sign-in.png) | ![Profile Page](./demo/screenshots/sign-up.png) |
 
+| Blog Page | Post Page |
+| --- | --- |
+| ![Blog Page](./demo/screenshots/blog.png) | ![Post Page](./demo/screenshots/post.png) |
+
+| Profile Page | Edit Profile Page |
+| --- | --- |
+| ![Profile Page](./demo/screenshots/profile.png) | ![Edit Profile Page](./demo/screenshots/edit-profile.png) |
+
+| Settings Page | Change Password Page |
+| --- | --- |
+| ![Settings Page](./demo/screenshots/settings.png) | ![Change Password Page](./demo/screenshots/change-password.png) |
+
 
 ## Technologies Used
 
