@@ -77,14 +77,61 @@
                     <div class="block-header block-header-default">
                         <div>
                             <div class="block-title">
-                                <a class="fw-semibold text-dark mx-2" href="javascript:void(0)">
+                                <div class="fw-semibold text-dark mx-2 d-inline">
                                     <i class="fa fa-fw fa-eye opacity-50 me-1"></i> {{ post.views }}
-                                </a>
-                                <!-- vertical rule separator -->
+                                </div>
+                                <!-- Vertical Rule Separator -->
                                 <span class="border-start border-2 border-dark mx-2"></span>
+                                <!-- End Vertical Rule Separator -->
+                                <div class="fw-semibold text-dark mx-2 d-inline">
+                                    <i class="fa fa-thumbs-up opacity-50 me-1"></i> {{ post.likes }}
+                                </div>
+                                <!-- Vertical Rule Separator -->
+                                <span class="border-start border-2 border-dark mx-2"></span>
+                                <!-- End Vertical Rule Separator -->
+                                <div class="fw-semibold text-dark mx-2 d-inline">
+                                    <i class="fa fa-comments opacity-50 me-1"></i> 12
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-options">
+                            <button type="button" class="btn-block-option">
+                                <i class="si si-settings"></i>
+                            </button>
+                            <button type="button" class="btn-block-option" data-toggle="block-option"
+                                data-action="fullscreen_toggle">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="block-content">
+                        {{ post.content|render_markdown|safe }}
+                    </div>
+                    <!-- Like, Comment, Bookmark the post, Share on right -->
+                    <div class="block-content block-content-full bg-body-light">
+                        <div class="d-flex flex-column flex-sm-row justify-content-sm-between">
+                            <div>
                                 <a class="text-muted fw-semibold text-default mx-2" href="javascript:void(0)"
                                     data-bs-toggle="modal" data-bs-target="#modal-block-vcenter">
                                     <i class="fa fa-thumbs-up opacity-50 me-1"></i> {{ post.likes }}
+                                </a>
+                                <span class="border-start border-2 border-dark mx-2"></span>
+                                <a class="text-muted fw-semibold text-default mx-2" href="#post-reply">
+                                    <i class="fa fa-comments opacity-50 me-1"></i> 12
+                                </a>
+                                <span class="border-start border-2 border-dark mx-2"></span>
+                                <a class="text-muted fw-semibold text-default mx-2" href="javascript:void(0)">
+                                    <i class="far fa-bookmark opacity-50 me-1"></i>
+                                </a>
+                            </div>
+                            <div class="block-options">
+                                <!-- button for Bookmarks Post -->
+                                <a class="btn btn-sm btn-alt-primary me-2" href="javascript:void(0)">
+                                    <i class="far fa-bookmark me-1"></i> Save
+                                </a>
+
+                                <!-- Share Post -->
+                                <a class="btn btn-sm btn-alt-primary me-2" href="#foru">
+                                    <i class="fa fa-share me-1"></i> Share
                                 </a>
                             </div>
                             <!-- Vertically Centered Block Modal -->
@@ -129,9 +176,9 @@
                                                             <!-- User Profile View -->
                                                             <td class="text-center">
                                                                 <a class="btn btn-sm btn-alt-secondary"
-                                                                    href="{% url 'profile' user.profile.id %}">
-                                                                    <i class="fa fa-fw fa-eye opacity-50 me-1"></i>
-                                                                    View Profile
+                                                                    href="{% url 'profile' user.profile.id %}"
+                                                                    data-bs-toggle="tooltip" title="View Profile">
+                                                                    <i class="fa fa-fw fa-eye"></i>
                                                                 </a>
                                                             </td>
                                                         </tr>
@@ -171,47 +218,6 @@
                                 </div>
                             </div>
                             <!-- END Vertically Centered Block Modal -->
-                        </div>
-                        <div class="block-options">
-                            <button type="button" class="btn-block-option">
-                                <i class="si si-settings"></i>
-                            </button>
-                            <button type="button" class="btn-block-option" data-toggle="block-option"
-                                data-action="fullscreen_toggle">
-                            </button>
-                        </div>
-                    </div>
-                    <div class="block-content">
-                        {{ post.content|render_markdown|safe }}
-                    </div>
-                    <!-- Like, Comment, Bookmark the post, Share on right -->
-                    <div class="block-content block-content-full bg-body-light">
-                        <div class="d-flex flex-column flex-sm-row justify-content-sm-between">
-                            <div>
-                                <a class="text-muted fw-semibold text-default mx-2" href="javascript:void(0)"
-                                    data-bs-toggle="modal" data-bs-target="#modal-block-vcenter">
-                                    <i class="fa fa-thumbs-up opacity-50 me-1"></i> {{ post.likes }}
-                                </a>
-                                <span class="border-start border-2 border-dark mx-2"></span>
-                                <a class="text-muted fw-semibold text-default mx-2" href="#post-reply">
-                                    <i class="fa fa-comments opacity-50 me-1"></i> 12
-                                </a>
-                                <span class="border-start border-2 border-dark mx-2"></span>
-                                <a class="text-muted fw-semibold text-default mx-2" href="javascript:void(0)">
-                                    <i class="far fa-bookmark opacity-50 me-1"></i>
-                                </a>
-                            </div>
-                            <div class="block-options">
-                                <!-- button for Bookmarks Post -->
-                                <a class="btn btn-sm btn-alt-primary me-2" href="javascript:void(0)">
-                                    <i class="far fa-bookmark me-1"></i> Save
-                                </a>
-                                
-                                <!-- Share Post -->
-                                <a class="btn btn-sm btn-alt-primary me-2" href="#foru">
-                                    <i class="fa fa-share me-1"></i> Share
-                                </a>
-                            </div>
                         </div>
                     </div>
                     <!-- End Like, Comment, Share -->
@@ -598,4 +604,7 @@
 
 <!-- Page JS Helpers (Slick Slider Plugin) -->
 <script>One.helpersOnLoad(['jq-slick']);</script>
+
+<!-- Page JS Code -->
+<script src="{% static 'assets/js/pages/be_ui_animations.min.js' %}"></script>
 {% endblock scripts %}
