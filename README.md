@@ -32,7 +32,10 @@ Design and implement the necessary models, views, and templates to create a soci
 
 - Successfully implement the following features:
   - **User authentication:** Sign Up, Login, OAuth 2.0(Google, Github), Logout, Forgot Password. [[more details & bug](detailed-features.md)]
-  - Create, edit, and delete posts
+  - Posts Create, edit, and delete - (Markdown Editor), Thumbnail resizing.
+    - Create: Title, Content, Description, Thumbnail, Tags, Category, Publish/Unpublish, Status: Save as Draft or Published.
+    - Edit:
+    - Delete:
   - Like and unlike posts
   - Comment and reply to comments on posts
   - Follow and unfollow other users
