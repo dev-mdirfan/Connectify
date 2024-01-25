@@ -89,3 +89,10 @@ For more details, see [User Authentication](user-authentication.md).
 
 1. Create a virtual environment and activate it. [[reference](https://gist.github.com/dev-mdirfan/b5fba9cb7b4b6fb3d383c50f7e1e79cb)]
 2. Install the required packages using **`pip install -r requirements.txt`**.
+
+## How to Contribute
+
+<i>Other places you can find us:</i><br>
+
+<a href="https://www.youtube.com/channel/" target="_blank"><img src="https://img.shields.io/badge/YouTube-%23E4405F.svg?&style=flat-square&logo=youtube&logoColor=white" alt="YouTube"></a>
+<a href="https://www.twitter.com/" target="_blank"><img src="https://img.shields.io/badge/Twitter-%231877F2.svg?&style=flat-square&logo=twitter&logoColor=white" alt="Twitter"></a>
