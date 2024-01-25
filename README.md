@@ -1,4 +1,14 @@
-# Connectify
+<p align="center">
+    <h1 align="center">Connectify</h1>
+    <p align="center">
+        <a href="" target="_blank">
+            <img src="./demo/screenshots/blog.png" alt="DjCRM" height="200">
+        </a>
+    </p>
+    <p align="center">
+        A Social Media Platform for connecting people.
+    </p>
+</p>
 
 Connectify is a social media platform that allows users to connect with each other and share their thoughts and ideas. Users can create posts, like and comment on posts, and follow other users.
 
