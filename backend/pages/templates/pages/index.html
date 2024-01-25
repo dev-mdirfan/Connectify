@@ -2,23 +2,59 @@
 {% load static %}
 {% load my_filters %}
 
+{% block styles %}
+    <!-- Stylesheets -->
+    <!-- Page JS Plugins CSS -->
+    <link rel="stylesheet" href="{% static 'assets/js/plugins/slick-carousel/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/js/plugins/slick-carousel/slick-theme.css' %}">
+{% endblock styles %}
+
 {% block title %} Home {% endblock title %}
 
 {% block content %}
 <!-- Main Container -->
 <main id="main-container">
-    <!-- Hero Content -->
-    <div class="bg-primary-dark">
-        <div class="content content-full overflow-hidden pt-7 pb-6 text-center">
-            <h1 class="h2 text-white mb-2">
-                The latest Blogs only for you.
-            </h1>
-            <h2 class="h4 fw-normal text-white-75 mb-0">
-                Feel free to explore and read.
-            </h2>
-        </div>
-    </div>
-    <!-- END Hero Content -->
+            <!-- Hero Content -->
+            <div class="js-slider slick-dotted-inner slick-dotted-white" data-dots="true" data-autoplay="true"
+                data-autoplay-speed="3000" data-arrows="true">
+                <div class="bg-image" style="background-image: url('{% static 'assets/media/photos/photo2@2x.jpg' %}');">
+                    <div class="bg-black-50">
+                        <div class="content content-full overflow-hidden pt-7 pb-6 text-center">
+                            <h1 class="h2 text-white mb-2">
+                                The latest stories only for you.
+                            </h1>
+                            <h2 class="h4 fw-normal text-white-75 mb-0">
+                                Feel free to explore and read.
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-image" style="background-image: url('{% static 'assets/media/photos/photo7@2x.jpg'  %}');">
+                    <div class="bg-black-50">
+                        <div class="content content-full overflow-hidden pt-7 pb-6 text-center">
+                            <h1 class="h2 text-white mb-2">
+                                We are the best
+                            </h1>
+                            <h2 class="h4 fw-normal text-white-75 mb-0">
+                                Feel free to explore and read.
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-image" style="background-image: url('{% static 'assets/media/photos/photo12@2x.jpg' %}');">
+                    <div class="bg-black-50">
+                        <div class="content content-full overflow-hidden pt-7 pb-6 text-center">
+                            <h1 class="h2 text-white mb-2">
+                                Performance and Maintenance
+                            </h1>
+                            <h2 class="h4 fw-normal text-white-75 mb-0">
+                                Feel free to explore and read.
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Hero Content -->
 
     <!-- Page Content -->
     <div class="content">
@@ -31,3 +67,12 @@
 </main>
 <!-- END Main Container -->
 {% endblock content %}
+
+{% block scripts %}
+    <!-- jQuery (required for Slick Slider plugin) -->
+    <script src="{% static 'assets/js/lib/jquery.min.js' %}"></script>
+    <!-- Page JS Plugins -->
+    <script src="{% static 'assets/js/plugins/slick-carousel/slick.min.js' %}"></script>
+    <!-- Page JS Helpers (Slick Slider Plugin) -->
+    <script>One.helpersOnLoad(['jq-slick']);</script>
+{% endblock scripts %}
