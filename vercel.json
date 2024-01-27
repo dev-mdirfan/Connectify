@@ -24,7 +24,7 @@
         },
         {
             "src": "/(.*)",
-            "dest": "connectify/wsgi.py"
+            "dest": "backend/connectify/wsgi.py"
         }
     ]
 }
