@@ -131,32 +131,35 @@
                         <span class="nav-main-link-name">Home</span>
                     </a>
                 </li>
-                <li class="nav-main-item open">
+                <li class="nav-main-item {% if 'blog' in request.path %} open {% endif %}">
                     <a {% if 'blog' in request.path %}
                     class="nav-main-link active nav-main-link-submenu"
-                    {% else %} class="nav-main-link nav-main-link-submenu" {% endif %} data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="{% url 'blog' %}">
+                    {% else %} class="nav-main-link nav-main-link-submenu" {% endif %} data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="">
                         <i class="nav-main-link-icon fa fa-blog"></i>
                         <span class="nav-main-link-name">Blog</span>
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="#">
+                            <a class="nav-main-link" href="{% url 'blog' %}">
                                 <i class="nav-main-link-icon si si-feed"></i>
                                 <span class="nav-main-link-name">Feed</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="#">
+                            <a class="nav-main-link" href="{% url 'post-create' %}">
                                 <i class="nav-main-link-icon si si-plus"></i>
                                 <span class="nav-main-link-name">Create New Post</span>
                             </a>
                         </li>
+                        {% if request.user.is_authenticated %}
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="#">
-                                <i class="nav-main-link-icon fa fa-circle-user"></i>
+                            <a class="nav-main-link" href="{% url 'profile' request.user.profile.id %}">
+                                <i class="nav-main-link-icon fa fa-user"></i>
                                 <span class="nav-main-link-name">Your Blog Profile</span>
                             </a>
                         </li>
+                        {% else %}
+                        {% endif %}
                     </ul>
                 </li>
                 <li class="nav-main-item">
@@ -169,11 +172,14 @@
                     </a>
                 </li>
                 <li class="nav-main-item">
-                    <a class="nav-main-link" href="be_pages_dashboard.html">
+                    <a {% if 'contact' in request.path %}
+                    class="nav-main-link active"
+                    {% else %} class="nav-main-link" {% endif %} href="{% url 'contact' %}">
                         <i class="nav-main-link-icon si si-phone"></i>
                         <span class="nav-main-link-name">Contact</span>
                     </a>
                 </li>
+                {% if request.user.is_authenticated %}
                 <li class="nav-main-heading">Dashboard</li>
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="be_pages_dashboard.html">
@@ -182,11 +188,13 @@
                     </a>
                 </li>
                 <li class="nav-main-item">
-                    <a class="nav-main-link" href="be_pages_dashboard.html">
+                    <a class="nav-main-link" href="{% url 'logout' %}">
                         <i class="nav-main-link-icon si si-logout"></i>
                         <span class="nav-main-link-name">Logout</span>
                     </a>
                 </li>
+                {% else %}
+                {% endif %}
             </ul>
         </div>
         <!-- END Side Navigation -->

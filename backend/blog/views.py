@@ -163,8 +163,11 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     A view for updating an existing post.
     """
     model = Post
+    form_class = PostForm
     template_name = 'blog/post_form.html'
-    fields = ['title', 'content', 'thumbnail']
+    # fields = ['title', 'content', 'thumbnail']
+    # success_url should return to where the user came from
+    success_url = reverse_lazy('post-detail')
 
     def form_valid(self, form):
         """

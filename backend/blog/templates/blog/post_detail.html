@@ -95,9 +95,16 @@
                             </div>
                         </div>
                         <div class="block-options">
-                            <button type="button" class="btn-block-option">
-                                <i class="si si-settings"></i>
-                            </button>
+                            {% if request.user.is_authenticated %}
+                            {% if request.user == post.author %}
+                            <a href="{% url 'post-update' post.id %}" class="btn-block-option">
+                                <i class="si si-pencil text-primary"></i>
+                            </a>
+                            <a href="{% url 'post-delete' post.id %}" class="btn-block-option">
+                                <i class="si si-trash text-danger"></i>
+                            </a>
+                            {% endif %}
+                            {% endif %}
                             <button type="button" class="btn-block-option" data-toggle="block-option"
                                 data-action="fullscreen_toggle">
                             </button>
