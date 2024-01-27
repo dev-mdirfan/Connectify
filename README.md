@@ -1,8 +1,10 @@
+# Connectify
+
 <p align="center">
-    <h1 align="center">Connectify</h1>
+    <!-- <h1 align="center"></h1> -->
     <p align="center">
         <a href="" target="_blank">
-            <img src="./demo/screenshots/blog.png" alt="DjCRM" height="200">
+            <img src="./demo/screenshots/blog.png" alt="DjCRM" height="250">
         </a>
     </p>
     <p align="center">
