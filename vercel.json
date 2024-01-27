@@ -19,7 +19,7 @@
     ],
     "routes": [
         {
-            "src": "/backend/staticfiles/(.*)",
+            "src": "/staticfiles/(.*)",
             "dest": "/staticfiles/$1"
         },
         {
