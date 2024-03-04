@@ -88,25 +88,25 @@ WSGI_APPLICATION = 'connectify.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 # SQLite3
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # PostgreSQL
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': '1fa53eB1b3G3bC11FGaa6EgDegdf-G4d',
-        'HOST': 'roundhouse.proxy.rlwy.net',
-        'PORT': '59213',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': '1fa53eB1b3G3bC11FGaa6EgDegdf-G4d',
+#         'HOST': 'roundhouse.proxy.rlwy.net',
+#         'PORT': '59213',
+#     }
+# }
 
 
 # Password validation

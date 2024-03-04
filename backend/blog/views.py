@@ -17,7 +17,7 @@ class PostListView(ListView):
     template_name = 'blog/post_list.html'
     context_object_name = 'posts'
     ordering = ['-created_at']
-    paginate_by = 10
+    paginate_by = 5
 
     def get_queryset(self):
         """
@@ -43,6 +43,7 @@ class PostListView(ListView):
 
         return queryset
 
+
 class PostDetailView(DetailView):
     """
     A view that displays the details of a post.
@@ -50,7 +51,7 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
     context_object_name = 'post'
-    
+
     def get(self, request, *args, **kwargs):
         """
         Increment the view count when the detail view is visited.
@@ -58,7 +59,7 @@ class PostDetailView(DetailView):
         # Increment the view count when the detail view is visited
         increment_views(self.kwargs['pk'])
         return super().get(request, *args, **kwargs)
-    
+
     def post(self, request, *args, **kwargs):
         """
         Handle the POST request for the post detail view.
@@ -81,11 +82,12 @@ class PostDetailView(DetailView):
                     return redirect('post-detail', pk=post.pk)
             else:
                 # Message on unsuccessful like
-                messages.error(request, f'You must be logged in to like/unlike a post!')
+                messages.error(
+                    request, f'You must be logged in to like/unlike a post!')
                 return redirect('post-detail', pk=post.pk)
 
         return super().post(request, *args, **kwargs)
-    
+
     def get_context_data(self, **kwargs):
         """
         Add additional context data to the template.
@@ -93,25 +95,27 @@ class PostDetailView(DetailView):
         - Add the 'like_status' to the context.
         """
         context = super().get_context_data(**kwargs)
-        
+
         # Retrieve the author's latest six posts
-        author_posts = Post.objects.filter(author=self.object.author).exclude(pk=self.object.pk).order_by('-created_at')[:6]
+        author_posts = Post.objects.filter(author=self.object.author).exclude(
+            pk=self.object.pk).order_by('-created_at')[:6]
         # Add 'author_posts' to the context
         context['author_posts'] = author_posts
-        
+
         # Get the post object
         post = self.get_object()
         # Get the like status for the current user
         like_status = get_like_status(post.pk, self.request.user)
         # Add 'like_status' to the context
         context['like_status'] = like_status
-        
+
         # Get the like users for the post
         like_users = get_like_users(post.pk)
         # Add 'like_users' to the context
         context['like_users'] = like_users
 
         return context
+
 
 '''
 class LikeView(View):
@@ -158,6 +162,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
         # return super().form_valid(form)
 
+
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """
     A view for updating an existing post.
@@ -183,13 +188,16 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         post = self.get_object()
         return self.request.user == post.author
 
+
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """
     A view for deleting a post.
     """
     model = Post
-    template_name = 'blog/post_confirm_delete.html'  # Replace with your actual template name
-    success_url = reverse_lazy('post-list')  # Replace 'post-list' with your actual URL name
+    # Replace with your actual template name
+    template_name = 'blog/post_confirm_delete.html'
+    # Replace 'post-list' with your actual URL name
+    success_url = reverse_lazy('post-list')
 
     def test_func(self):
         """
@@ -197,5 +205,3 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         """
         post = self.get_object()
         return self.request.user == post.author
-
-
