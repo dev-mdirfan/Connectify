@@ -1,4 +1,4 @@
-# Environments
+### Environments =========
 .env
 .venv
 env/
@@ -8,7 +8,7 @@ env.bak/
 venv.bak/
 
 
-### Django ###
+### Django ===============
 *.log
 *.pot
 *.pyc
