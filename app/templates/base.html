@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en" class="dark-style {% block html_class %} {% endblock html_class %}" dir="ltr" data-theme="theme-default"
+    data-assets-path="{% static 'assets/' %}" data-template="vertical-menu-template">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>{% block title %} {% endblock title %} | {{ brand_name }} - {{ slogan }}</title>
+
+    <meta name="description" content="{{ description }}">
+    <meta name="author" content="Mohd Irfan">
+    <meta name="robots" content="noindex, nofollow">
+
+
+    <!-- CSS -->
+    {% include 'partials/_styles.html' %}
+    {% block page_styles %}{% endblock page_styles %}
+</head>
+
+<body>
+    <!-- Page Container -->
+    {% block base_content %}{% endblock base_content %}
+    <!-- / Page Container -->
+
+    <!-- Scripts -->
+    {% include 'partials/_scripts.html' %}
+    {% block page_scripts %}{% endblock page_scripts %}
+</body>
+
+</html>

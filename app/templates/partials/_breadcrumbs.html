@@ -1,0 +1,11 @@
+{% load my_filters %}
+{% with path=request.path|split_string:'/' %}
+<h4 class="fw-medium mb-4">
+    <span class="fw-light">
+        <a class="fw-light" href="{% url 'base:index' %}">Home</a> / 
+    </span>
+    {{path.1|capfirst}}
+    {% if path.2 %} / {{path.2|capfirst}}{% endif %}
+    {% if path.3 %} / {{path.3|capfirst}}{% endif %}
+</h4>
+{% endwith %}
